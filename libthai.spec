@@ -4,7 +4,7 @@
 #
 Name     : libthai
 Version  : 0.1.27
-Release  : 4
+Release  : 5
 URL      : ftp://linux.thai.net/pub/thailinux/software/libthai/libthai-0.1.27.tar.xz
 Source0  : ftp://linux.thai.net/pub/thailinux/software/libthai/libthai-0.1.27.tar.xz
 Summary  : Thai support library

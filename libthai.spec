@@ -4,15 +4,15 @@
 #
 Name     : libthai
 Version  : 0.1.28
-Release  : 6
+Release  : 7
 URL      : ftp://linux.thai.net/pub/thailinux/software/libthai/libthai-0.1.28.tar.xz
 Source0  : ftp://linux.thai.net/pub/thailinux/software/libthai/libthai-0.1.28.tar.xz
-Summary  : Thai support library
+Summary  : Thai language support routines
 Group    : Development/Tools
 License  : LGPL-2.1
-Requires: libthai-lib
-Requires: libthai-license
-Requires: libthai-data
+Requires: libthai-data = %{version}-%{release}
+Requires: libthai-lib = %{version}-%{release}
+Requires: libthai-license = %{version}-%{release}
 BuildRequires : doxygen
 BuildRequires : gcc-dev32
 BuildRequires : gcc-libgcc32
@@ -44,9 +44,9 @@ data components for the libthai package.
 %package dev
 Summary: dev components for the libthai package.
 Group: Development
-Requires: libthai-lib
-Requires: libthai-data
-Provides: libthai-devel
+Requires: libthai-lib = %{version}-%{release}
+Requires: libthai-data = %{version}-%{release}
+Provides: libthai-devel = %{version}-%{release}
 
 %description dev
 dev components for the libthai package.
@@ -55,9 +55,9 @@ dev components for the libthai package.
 %package dev32
 Summary: dev32 components for the libthai package.
 Group: Default
-Requires: libthai-lib32
-Requires: libthai-data
-Requires: libthai-dev
+Requires: libthai-lib32 = %{version}-%{release}
+Requires: libthai-data = %{version}-%{release}
+Requires: libthai-dev = %{version}-%{release}
 
 %description dev32
 dev32 components for the libthai package.
@@ -74,8 +74,8 @@ doc components for the libthai package.
 %package lib
 Summary: lib components for the libthai package.
 Group: Libraries
-Requires: libthai-data
-Requires: libthai-license
+Requires: libthai-data = %{version}-%{release}
+Requires: libthai-license = %{version}-%{release}
 
 %description lib
 lib components for the libthai package.
@@ -84,8 +84,8 @@ lib components for the libthai package.
 %package lib32
 Summary: lib32 components for the libthai package.
 Group: Default
-Requires: libthai-data
-Requires: libthai-license
+Requires: libthai-data = %{version}-%{release}
+Requires: libthai-license = %{version}-%{release}
 
 %description lib32
 lib32 components for the libthai package.
@@ -110,12 +110,20 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1533133424
+export SOURCE_DATE_EPOCH=1547873043
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
+export FCFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
+export FFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
+export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
 %configure --disable-static
 make  %{?_smp_mflags}
 
 pushd ../build32/
 export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+export ASFLAGS="$ASFLAGS --32"
 export CFLAGS="$CFLAGS -m32"
 export CXXFLAGS="$CXXFLAGS -m32"
 export LDFLAGS="$LDFLAGS -m32"
@@ -128,12 +136,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
+cd ../build32;
+make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1533133424
+export SOURCE_DATE_EPOCH=1547873043
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/libthai
-cp COPYING %{buildroot}/usr/share/doc/libthai/COPYING
+mkdir -p %{buildroot}/usr/share/package-licenses/libthai
+cp COPYING %{buildroot}/usr/share/package-licenses/libthai/COPYING
 pushd ../build32/
 %make_install32
 if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
@@ -195,5 +205,5 @@ popd
 /usr/lib32/libthai.so.0.3.1
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/libthai/COPYING
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/libthai/COPYING

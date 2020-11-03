@@ -4,7 +4,7 @@
 #
 Name     : libthai
 Version  : 0.1.28
-Release  : 8
+Release  : 9
 URL      : ftp://linux.thai.net/pub/thailinux/software/libthai/libthai-0.1.28.tar.xz
 Source0  : ftp://linux.thai.net/pub/thailinux/software/libthai/libthai-0.1.28.tar.xz
 Summary  : Thai support library
@@ -102,6 +102,7 @@ license components for the libthai package.
 
 %prep
 %setup -q -n libthai-0.1.28
+cd %{_builddir}/libthai-0.1.28
 pushd ..
 cp -a libthai-0.1.28 build32
 popd
@@ -111,14 +112,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1569530452
+export SOURCE_DATE_EPOCH=1604443327
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
-export FCFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
-export FFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
+export FCFLAGS="$FFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
+export FFLAGS="$FFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
 export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
 %configure --disable-static
 make  %{?_smp_mflags}
@@ -137,15 +138,15 @@ export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make %{?_smp_mflags} check
 cd ../build32;
-make VERBOSE=1 V=1 %{?_smp_mflags} check || :
+make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1569530452
+export SOURCE_DATE_EPOCH=1604443327
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libthai
-cp COPYING %{buildroot}/usr/share/package-licenses/libthai/COPYING
+cp %{_builddir}/libthai-0.1.28/COPYING %{buildroot}/usr/share/package-licenses/libthai/9a1929f4700d2407c70b507b3b2aaf6226a9543c
 pushd ../build32/
 %make_install32
 if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
@@ -208,4 +209,4 @@ popd
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/libthai/COPYING
+/usr/share/package-licenses/libthai/9a1929f4700d2407c70b507b3b2aaf6226a9543c

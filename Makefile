@@ -1,5 +1,5 @@
 PKG_NAME := libthai
-URL = ftp://linux.thai.net/pub/thailinux/software/libthai/libthai-0.1.28.tar.xz
+URL = https://github.com/tlwg/libthai/releases/download/v0.1.28/libthai-0.1.28.tar.xz
 ARCHIVES = 
 
 include ../common/Makefile.common

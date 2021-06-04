@@ -4,9 +4,9 @@
 #
 Name     : libthai
 Version  : 0.1.28
-Release  : 9
-URL      : ftp://linux.thai.net/pub/thailinux/software/libthai/libthai-0.1.28.tar.xz
-Source0  : ftp://linux.thai.net/pub/thailinux/software/libthai/libthai-0.1.28.tar.xz
+Release  : 10
+URL      : https://github.com/tlwg/libthai/releases/download/v0.1.28/libthai-0.1.28.tar.xz
+Source0  : https://github.com/tlwg/libthai/releases/download/v0.1.28/libthai-0.1.28.tar.xz
 Summary  : Thai support library
 Group    : Development/Tools
 License  : LGPL-2.1
@@ -112,7 +112,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1604443327
+export SOURCE_DATE_EPOCH=1622849665
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -143,7 +143,7 @@ cd ../build32;
 make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1604443327
+export SOURCE_DATE_EPOCH=1622849665
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libthai
 cp %{_builddir}/libthai-0.1.28/COPYING %{buildroot}/usr/share/package-licenses/libthai/9a1929f4700d2407c70b507b3b2aaf6226a9543c
